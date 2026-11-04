@@ -14,7 +14,8 @@ import {
   AppUncontrolledElementsForm, //! 4.4.1.Неконтрольовані елементи форм
   AppControlledElementsForm, //! 4.4.2.Контрольовані елементи форм
   AppComplexForms, //! 4.4.3.Складні форми
-  AppComplexFormsLifeCycle //! Життєві цикли реакт
+  AppComplexFormsLifeCycle,//! Життєві цикли реакт
+  AppHTTPRequestBasics //! HTTP-запити
 } from '@/components/App';
 
 
@@ -22,7 +23,7 @@ import {
 createRoot(document.getElementById('root')).render(
 	<StrictMode>
 		<BrowserRouter basename='/airplane-model-store3-state2-form1-lifeCycle-HTTPrequests'>
-        <App />
+        {/* <App /> */}
         {/* <AppColorBox />  */}
         {/* <AppSearchDebounce /> */}
         {/* <AppSearchDebounceTextBacklight /> */}
@@ -31,7 +32,7 @@ createRoot(document.getElementById('root')).render(
         {/* <AppComplexForms onSubmit={values => console.log(values)} /> */}
         {/* <AppComplexForms/> */}
         {/* <AppComplexFormsLifeCycle/> */}
-
+        <AppHTTPRequestBasics/>
 		</BrowserRouter>
 	</StrictMode>
 )

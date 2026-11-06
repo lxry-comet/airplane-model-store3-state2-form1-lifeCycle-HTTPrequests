@@ -7,7 +7,7 @@ export class PokemonForm extends Component {
 		pokemonName:"",
 	}
 	reset = () => {
-		this.setState({...this.state});
+		this.setState({pokemonName:""});
 	};
 
 	handleSubmit = event => {

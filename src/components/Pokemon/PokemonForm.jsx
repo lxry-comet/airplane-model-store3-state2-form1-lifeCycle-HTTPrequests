@@ -14,9 +14,14 @@ export class PokemonForm extends Component {
 		event.preventDefault();
 		const {pokemonName} = this.state;
 		console.log(`Ім'я покемона: ${pokemonName}`);
+		if(pokemonName===""){
+			alert("Введіть ім'я покемона!")
+			return
+		}
 		this.props.onSubmit(pokemonName); //! Тут відбувається виклик функції з AppComplexForm submit({ ...this.state })
 		this.reset();
 	};
+
 	handleChange = event => {
 		const { name, value } = event.currentTarget;
 		console.log("name:", name);

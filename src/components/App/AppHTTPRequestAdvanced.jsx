@@ -13,9 +13,14 @@ import { PokemonForm } from '@/components/Pokemon/PokemonForm.jsx'
 
 export class AppHTTPRequestAdvanced extends Component {
 	state = {
-		pokemonName: null, 
+		pokemonName: "",
 	}
-
+	submitForm = (pokemonName) => {
+		console.log("🐷🐷🐷pokemonName", pokemonName)
+		this.setState({
+			pokemonName: pokemonName,
+		})
+	}
 
 	render() {
 
@@ -34,7 +39,7 @@ export class AppHTTPRequestAdvanced extends Component {
 				<div className={css.mainContainer} >
 
 					{/* //! Форма для отримання ім'я покемона */}
-					<PokemonForm />
+					<PokemonForm onSubmit={this.submitForm} />
 				</div>
 			</>
 		)

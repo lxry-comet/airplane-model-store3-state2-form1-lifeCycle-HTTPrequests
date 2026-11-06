@@ -4,9 +4,28 @@ import css from "./PokemonForm.module.css"
 
 export class PokemonForm extends Component {
 	state = {
-		pokemonName:null
+		pokemonName:"",
 	}
+	reset = () => {
+		this.setState({...this.state});
+	};
 
+	handleSubmit = event => {
+		event.preventDefault();
+		const {pokemonName} = this.state;
+		console.log(`Ім'я покемона: ${pokemonName}`);
+		this.props.onSubmit(pokemonName); //! Тут відбувається виклик функції з AppComplexForm submit({ ...this.state })
+		this.reset();
+	};
+	handleChange = event => {
+		const { name, value } = event.currentTarget;
+		console.log("name:", name);
+		console.log("value:", value);
+		this.setState({
+			[name]: value,
+		});
+
+	}
 
 	render() {
 
@@ -15,21 +34,27 @@ export class PokemonForm extends Component {
 		} = this.state
 
 
-console.log("----------------------------------------------");
+				console.log("----------------------------------------------");
         console.log("🔖🐷 Ім'я покемона:", pokemonName);
-console.log("______________________________________________");
+				console.log("______________________________________________");
 
 
 		return (
 			<>
-				<form className={css.pokemonForm}>
+				<form 
+					className={css.pokemonForm}
+					onSubmit={this.handleSubmit}
+				>
 					<input 
-					type="text" 
-					className={css.pokemonFormInput}
+						className={css.pokemonFormInput}
+						type="text" 
+						name='pokemonName'
+						value={pokemonName}
+						onChange={this.handleChange}
 					/>
 					<button 
-					type="submit"
-					className={css.pokemonButton}
+						className={css.pokemonButton}
+						type="submit"
 					>
 						Search
 					</button>

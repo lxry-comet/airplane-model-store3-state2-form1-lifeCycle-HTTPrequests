@@ -15,7 +15,8 @@ import {
   AppControlledElementsForm, //! 4.4.2.Контрольовані елементи форм
   AppComplexForms, //! 4.4.3.Складні форми
   AppComplexFormsLifeCycle,//! Життєві цикли реакт
-  AppHTTPRequestBasics //! HTTP-запити
+  AppHTTPRequestBasics, //! HTTP-запити
+  AppHTTPRequestAdvanced
 } from '@/components/App';
 
 
@@ -32,7 +33,8 @@ createRoot(document.getElementById('root')).render(
         {/* <AppComplexForms onSubmit={values => console.log(values)} /> */}
         {/* <AppComplexForms/> */}
         {/* <AppComplexFormsLifeCycle/> */}
-        <AppHTTPRequestBasics/>
+        {/* <AppHTTPRequestBasics/> */}
+        <AppHTTPRequestAdvanced/>
 		</BrowserRouter>
 	</StrictMode>
 )

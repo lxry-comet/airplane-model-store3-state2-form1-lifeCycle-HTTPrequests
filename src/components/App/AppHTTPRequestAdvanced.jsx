@@ -15,7 +15,7 @@ import { ToastContainer } from 'react-toastify'; //! 01.Підлючення б�
 // https://www.npmjs.com/package/react-toasti
 // https://fkhadra.github.io/react-toastify/introduction/
 
-
+import {PokemonInfo} from "@/components/PokemonInfo/PokemonInfo.jsx"
 
 export class AppHTTPRequestAdvanced extends Component {
 	state = {
@@ -44,11 +44,11 @@ export class AppHTTPRequestAdvanced extends Component {
 			<>
 				<div className={css.mainContainer} >
 
-{/* //! Форма для отримання ім'я покемона */}
+					{/* //! Форма для отримання ім'я покемона */}
 					<PokemonForm onSubmit={this.submitForm} />
 
 
-{/* //! 01.Підлючення бібліотеки react-toastify */}
+					{/* //! 01.Підлючення бібліотеки react-toastify */}
           <ToastContainer 
 						position="top-left"
 						autoClose={3000}
@@ -61,6 +61,7 @@ export class AppHTTPRequestAdvanced extends Component {
 						pauseOnHover
 						theme="dark"
 					/>
+					<PokemonInfo pokemonName={pokemonName}/>
 				</div>
 			</>
 		)

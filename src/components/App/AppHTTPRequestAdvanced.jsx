@@ -46,6 +46,7 @@ export class AppHTTPRequestAdvanced extends Component {
 
 					{/* //! Форма для отримання ім'я покемона */}
 					<PokemonForm onSubmit={this.submitForm} />
+					<PokemonInfo pokemonName={pokemonName}/>
 
 
 					{/* //! 01.Підлючення бібліотеки react-toastify */}
@@ -61,7 +62,6 @@ export class AppHTTPRequestAdvanced extends Component {
 						pauseOnHover
 						theme="dark"
 					/>
-					<PokemonInfo pokemonName={pokemonName}/>
 				</div>
 			</>
 		)

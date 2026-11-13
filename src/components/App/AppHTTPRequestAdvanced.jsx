@@ -11,6 +11,12 @@ import css from "./AppHTTPRequestAdvanced.module.css"
 
 import { PokemonForm } from '@/components/Pokemon/PokemonForm.jsx'
 
+import { ToastContainer } from 'react-toastify'; //! 01.Підлючення бібліотеки react-toastify
+// https://www.npmjs.com/package/react-toasti
+// https://fkhadra.github.io/react-toastify/introduction/
+
+
+
 export class AppHTTPRequestAdvanced extends Component {
 	state = {
 		pokemonName: "",
@@ -38,8 +44,23 @@ export class AppHTTPRequestAdvanced extends Component {
 			<>
 				<div className={css.mainContainer} >
 
-					{/* //! Форма для отримання ім'я покемона */}
+{/* //! Форма для отримання ім'я покемона */}
 					<PokemonForm onSubmit={this.submitForm} />
+
+
+{/* //! 01.Підлючення бібліотеки react-toastify */}
+          <ToastContainer 
+						position="top-left"
+						autoClose={3000}
+						hideProgressBar={false}
+						newestOnTop={false}
+						closeOnClick={false}
+						rtl={false}
+						pauseOnFocusLoss
+						draggable
+						pauseOnHover
+						theme="dark"
+					/>
 				</div>
 			</>
 		)

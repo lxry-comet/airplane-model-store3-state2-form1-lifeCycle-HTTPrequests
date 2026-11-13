@@ -1,4 +1,9 @@
 import React, { Component } from "react"
+
+// https://www.npmjs.com/package/react-toasti
+// https://fkhadra.github.io/react-toastify/introduction/
+import { toast } from 'react-toastify'; //! 02.Підлючення/виклик бібліотеки react-toastify
+
 import css from "./PokemonForm.module.css"
 
 
@@ -15,7 +20,9 @@ export class PokemonForm extends Component {
 		const {pokemonName} = this.state;
 		console.log(`Ім'я покемона: ${pokemonName}`);
 		if(pokemonName===""){
-			alert("Введіть ім'я покемона!")
+			// alert("Введіть ім'я покемона!")
+			// toast("Введіть ім'я покемона"); //! 02.Підлючення/виклик бібліотеки react-toastify
+			toast.error("Введіть ім'я покемона");
 			return
 		}
 		this.props.onSubmit(pokemonName); //! Тут відбувається виклик функції з AppComplexForm submit({ ...this.state })

@@ -1,4 +1,11 @@
 import { Component } from 'react'
+
+
+// https://www.npmjs.com/package/react-toasti
+// https://fkhadra.github.io/react-toastify/introduction/
+import { toast } from 'react-toastify'; //! 02.Підлючення/виклик бібліотеки react-toastify
+
+
 import css from './FormRegistration.module.css'
 
 const INITIAL_STATE = {

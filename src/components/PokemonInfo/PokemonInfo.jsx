@@ -50,11 +50,13 @@ export class PokemonInfo extends Component {
 			pokemonName, //! ім'я покемона
 		} = this.props
     
-		
+		const src = pokemon?.sprites.other['official-artwork'].front_default;
 
 		console.log("----------------------------------------------")
 		console.log("ℹ️props-> 🐷 Покемон-ім'я:", pokemonName)
 		console.log("ℹ️{🐷} Покемон-об'єкт:", pokemon)
+		console.log("ℹ️{🐷} Покемон-зображення:", src)
+
 		// console.log("ℹ️⏳ Індикатор завантаження (лоадер):", loading);
 		console.log("______________________________________________")
 
@@ -70,7 +72,9 @@ export class PokemonInfo extends Component {
 				{pokemon && (
 					<div className={css.pokemonContainer}>
 						<p className={css.pokemonName}><u><i>Покемон</i></u>: <b>{pokemon.name}</b></p>
-						<img/>
+						<img
+							src={src}
+						/>
 					</div>
 				)}
 			</div>

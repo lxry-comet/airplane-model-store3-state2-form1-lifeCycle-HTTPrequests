@@ -46,8 +46,9 @@ export class AppHTTPRequestAdvanced extends Component {
 
 					{/* //! Форма для отримання ім'я покемона */}
 					<PokemonForm onSubmit={this.submitForm} />
-					<PokemonInfo pokemonName={pokemonName}/>
 
+					{/* //! HTTP-запит + Розмітка */}
+					<PokemonInfo pokemonName={pokemonName}/>
 
 					{/* //! 01.Підлючення бібліотеки react-toastify */}
           <ToastContainer 

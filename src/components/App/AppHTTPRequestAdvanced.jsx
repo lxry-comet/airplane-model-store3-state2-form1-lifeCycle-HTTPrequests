@@ -10,6 +10,7 @@ import React, { Component } from "react"
 import css from "./AppHTTPRequestAdvanced.module.css"
 
 import { PokemonForm } from '@/components/Pokemon/PokemonForm.jsx'
+import {PokemonInfoAndErrors} from '@/components/PokemonInfo/PokemonInfoAndErrors.jsx'
 
 import { ToastContainer } from 'react-toastify'; //! 01.Підлючення бібліотеки react-toastify
 // https://www.npmjs.com/package/react-toasti
@@ -48,7 +49,11 @@ export class AppHTTPRequestAdvanced extends Component {
 					<PokemonForm onSubmit={this.submitForm} />
 
 					{/* //! HTTP-запит + Розмітка */}
-					<PokemonInfo pokemonName={pokemonName}/>
+					{/* <PokemonInfo pokemonName={pokemonName}/> */}
+
+					{/* //! HTTP-запит + Розмітка + Обробка помилок */}
+          <PokemonInfoAndErrors pokemonName={pokemonName} />
+
 
 					{/* //! 01.Підлючення бібліотеки react-toastify */}
           <ToastContainer 

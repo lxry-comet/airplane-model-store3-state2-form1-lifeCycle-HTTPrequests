@@ -90,7 +90,7 @@ export class PokemonInfoAndErrors extends Component {
 				{error && <h2 className={css.pokemonInfoTitleError}>{error.message}</h2>}
 				{/* //todo: Обробка помилок */}
         {!pokemon && !loading && !error && <h2><i>Введіть ім'я покемона</i></h2>}
-				{pokemon && (
+				{loading && (
 					<h2><u><i>Ви ввели ім'я покемона</i></u>:<b>{pokemonName}</b></h2>
 				)}
 				{loading && (

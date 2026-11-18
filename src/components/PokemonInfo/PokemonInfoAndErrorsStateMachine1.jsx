@@ -7,12 +7,25 @@ import { toast } from 'react-toastify' //! 02.Підлючення/виклик 
 import css from "./PokemonInfo.module.css"
 
 
+//? Застосуємо такі статуси:
+//?     - idle - запиту ще немає, нічого не відбувається
+//?     - pending - пішов запит
+//?     - rejected - відповідь на запит з помилкою
+//?     - resolved - успішна відповідь на запит
+//* Плюси використання паттерна State Machine:
+//*     - Зникають проблеми скидання полів «щоб працювало».
+//*     - Не слід стежити за значеннями N полів. 
+//*     - Зрозуміліші умови рендеру розмітки.
+
+
 export class PokemonInfoAndErrorsStateMachine1 extends Component {
 	state = {
-		pokemon: null,
-		loading: false, //! індикатор завантаження (лоадер)
-		error: null, //todo: Обробка помилок
-	}
+    pokemon: null, //! об'єкт з даними про покемона
+    // loading: false, //! індикатор завантаження (лоадер) - вже не потрібен
+    error: null, //todo: Обробка помилок
+    status: 'idle', //! статус
+  };
+
 
 	// setName = () => {
 	// 	this.setState({pokemon: this.props.pokemonName})
@@ -29,11 +42,14 @@ export class PokemonInfoAndErrorsStateMachine1 extends Component {
 			console.log("⏮️prevName (prevProps.pokemonName): ", prevProps.pokemonName)
 			console.log("⏭️nextName (this.props.pokemonName): ", this.props.pokemonName)
 
-		this.setState({ 
-			loading: true, 
-			pokemon: null, 
-			error: null 
-		}); //! індикатор завантаження (лоадер) = true
+		//todo: old
+      // this.setState({
+      //   pokemon: null, //! прибираємо попереднього покемона при завантаженні наступного
+      //   // loading: true, //! індикатор завантаження (лоадер)
+      //   error: null, //todo: Обробка помилок - прибираємо можливу попередню помилку
+      // });
+      //*: New
+      this.setState({ status: 'pending' }); //! статус
 
 			setTimeout(() => {
 				fetch(`https://pokeapi.co/api/v2/pokemon/${nextName}`)
@@ -47,27 +63,38 @@ export class PokemonInfoAndErrorsStateMachine1 extends Component {
             return Promise.reject(new Error(`🚫Покемена з ім'ям «${nextName}» не існує`))
           })
 					
-					.then(pokemon => this.setState({
-            pokemon,
-            error: null, // todo: Обробка помилок
-          }))
-					// todo: Обробка помилок
-          .catch(error => this.setState({
-            pokemon: null,
-            error
-          }))
+					.then(pokemon =>
+            this.setState({
+              pokemon,
+              // error: null, // todo: Обробка помилок - вже не потрібно
+              status: 'resolved', //! статус 
+            }))
 
-					.finally(() => this.setState({ loading: false })); //! індикатор завантаження (лоадер) = false
+					//todo: Обробка помилок
+          .catch(error =>
+            this.setState({
+              // pokemon: null, // todo: вже не потрібно
+              error,
+              status: 'rejected', //! статус 
+            }))
+
+
+					.finally(() => this.setState({
+            // loading: false, //! індикатор завантаження (лоадер) - вже не потрібно
+          }));
+
 			}, 2000)
 		}
 	}
 
 	render() {
-		const {
-			pokemon, //! об'єкт з даними про покемона
-			loading,
-			error
-		} = this.state
+const {
+      pokemon, //! об'єкт з даними про покемона
+      // loading, //! індикатор завантаження (лоадер)
+      error, //todo: Обробка помилок
+      status, //! статус
+    }
+ = this.state
 
 		const {
 			pokemonName, //! ім'я покемона
@@ -75,36 +102,85 @@ export class PokemonInfoAndErrorsStateMachine1 extends Component {
     
 		const src = pokemon?.sprites.other['official-artwork'].front_default;
 
-		console.log("----------------------------------------------")
-		console.log("ℹ️props-> 🐷 Покемон-ім'я:", pokemonName)
-		console.log("ℹ️{🐷} Покемон-об'єкт:", pokemon)
-		console.log("ℹ️{🐷} Покемон-зображення:", src)
-		console.log("ℹ️❌ Помилка:", error);
-		console.log("______________________________________________")
+		console.log("----------------------------------------------");
+    console.log("ℹ️props-> 🐷 Покемон-ім'я:", pokemonName);
+    console.log("ℹ️{🐷} Покемон-об'єкт:", pokemon);
+    // console.log("ℹ️⏳ Індикатор завантаження (лоадер):", loading);
+    console.log("ℹ️❌ Помилка:", error);
+    console.log("ℹ️❓ Статус:", status);
+    console.log("----------------------------------------------");
 
-		return (
-			<div className={css.pokemonInfo}>
-				<h1>Pokemon Info</h1>
-				{/* //todo: Обробка помилок */}
-				{/* {error && (<h2>Покемена з ім'ям {pokemonName} не існує</h2>)} */}
-				{error && <h2 className={css.pokemonInfoTitleError}>{error.message}</h2>}
-				{/* //todo: Обробка помилок */}
-        {!pokemon && !loading && !error && <h2><i>Введіть ім'я покемона</i></h2>}
-				{pokemon && (
+//todo: old
+		// return (
+		// 	<div className={css.pokemonInfo}>
+		// 		<h1>Pokemon Info</h1>
+		// 		{/* //todo: Обробка помилок */}
+		// 		{/* {error && (<h2>Покемена з ім'ям {pokemonName} не існує</h2>)} */}
+		// 		{error && <h2 className={css.pokemonInfoTitleError}>{error.message}</h2>}
+		// 		{/* //todo: Обробка помилок */}
+    //     {!pokemon && !loading && !error && <h2><i>Введіть ім'я покемона</i></h2>}
+		// 		{pokemon && (
+		// 			<h2><u><i>Ви ввели ім'я покемона</i></u>:<b>{pokemonName}</b></h2>
+		// 		)}
+		// 		{loading && (
+		// 			<h2 className={css.pokemonInfoLoading}>Завантажуємо покемон...</h2>
+		// 		)}
+		// 		{pokemon && (
+		// 			<div className={css.pokemonContainer}>
+		// 				<p className={css.pokemonName}><u><i>Покемон</i></u>: <b>{pokemon.name}</b></p>
+		// 				<img
+		// 					src={src}
+		// 				/>
+		// 			</div>
+		// 		)}
+		// 	</div>
+		// )
+
+//*: New
+    //? Застосуємо такі статуси:
+    //?     - idle - запиту ще немає, нічого не відбувається
+    //?     - pending - пішов запит
+    //?     - rejected - відповідь на запит з помилкою
+    //?     - resolved - успішна відповідь на запит
+
+    //? idle - запиту ще немає, нічого не відбувається
+    if (status === 'idle') {
+      return (
+        <div className={css.pokemonInfo}>
+          <h1>Pokemon Info</h1>
+          <h2><i>Введіть ім'я покемона</i></h2>
+        </div>
+      );
+    };
+		
+		//? pending - пішов запит
+    if (status === 'pending') {
+      return (
+        <div className={css.pokemonInfo}>
+          <h1>Pokemon Info</h1>
 					<h2><u><i>Ви ввели ім'я покемона</i></u>:<b>{pokemonName}</b></h2>
-				)}
-				{loading && (
-					<h2 className={css.pokemonInfoLoading}>Завантажуємо покемон...</h2>
-				)}
-				{pokemon && (
-					<div className={css.pokemonContainer}>
-						<p className={css.pokemonName}><u><i>Покемон</i></u>: <b>{pokemon.name}</b></p>
-						<img
-							src={src}
-						/>
-					</div>
-				)}
-			</div>
-		)
+          <h2 className={css.pokemonInfoLoading}>Завантажуємо покемон...</h2>
+        </div>
+      );
+    };	
+		//? rejected - відповідь на запит з помилкою
+    if (status === 'rejected') {
+      return (
+        <div className={css.pokemonInfo}>
+          <h1>Pokemon Info</h1>
+          <h2 className={css.pokemonInfoTitleError}>{error.message}</h2>
+        </div>
+      );
+    };
+		//? resolved - успішна відповідь на запит
+    if (status === 'resolved') {
+      return (
+        <div className={css.pokemonInfo}>
+          <h1>Pokemon Info</h1>
+          <p className={css.pokemonName}><u><i>Покемон</i></u>: <b>{pokemon.name}</b></p>
+					<img src={src} alt={pokemon.name}/>
+        </div>
+      );
+    };
 	}
 }

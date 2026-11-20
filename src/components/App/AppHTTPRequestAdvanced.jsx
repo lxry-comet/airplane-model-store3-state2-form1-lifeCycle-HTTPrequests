@@ -12,6 +12,7 @@ import css from "./AppHTTPRequestAdvanced.module.css"
 import { PokemonForm } from '@/components/Pokemon/PokemonForm.jsx'
 import {PokemonInfoAndErrors} from '@/components/PokemonInfo/PokemonInfoAndErrors.jsx'
 import {PokemonInfoAndErrorsStateMachine1} from '@/components/PokemonInfo/PokemonInfoAndErrorsStateMachine1.jsx'
+import {PokemonInfoAndErrorsStateMachine21} from '@/components/PokemonInfo/PokemonInfoAndErrorsStateMachine21.jsx'
 
 import { ToastContainer } from 'react-toastify'; //! 01.Підлючення бібліотеки react-toastify
 // https://www.npmjs.com/package/react-toasti
@@ -55,7 +56,10 @@ export class AppHTTPRequestAdvanced extends Component {
 					{/* //! HTTP-запит + Розмітка + Обробка помилок */}
           {/* <PokemonInfoAndErrors pokemonName={pokemonName} /> */}
           
-					<PokemonInfoAndErrorsStateMachine1 pokemonName={pokemonName} />
+					{/* <PokemonInfoAndErrorsStateMachine1 pokemonName={pokemonName} /> */}
+					
+{/* //! HTTP-запит + Розмітка + Обробка помилок + State Machine (чистий код) */}
+					<PokemonInfoAndErrorsStateMachine21 pokemonName={pokemonName} />
 
 
 					{/* //! 01.Підлючення бібліотеки react-toastify */}
